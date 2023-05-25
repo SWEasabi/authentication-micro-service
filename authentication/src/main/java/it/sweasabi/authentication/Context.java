@@ -1,10 +1,24 @@
 package it.sweasabi.authentication;
 
+
 import org.json.JSONObject;
+
+import it.sweasabi.authentication.kernel.Authenticator;
+import it.sweasabi.authentication.kernel.Blacklister;
+import it.sweasabi.authentication.kernel.JwtIssuer;
+import it.sweasabi.authentication.services.BlackListService;
+import it.sweasabi.authentication.services.KeysService;
+import it.sweasabi.authentication.services.LocalBlacklistService;
+import it.sweasabi.authentication.services.LocalKeysService;
+import it.sweasabi.authentication.services.LocalUsersService;
+import it.sweasabi.authentication.services.UsersService;
 
 public class Context 
 {
-    private static String privateSignature = "chiavePrivata";
+    static UsersService userService = new LocalUsersService();
+    static KeysService keys = new LocalKeysService();
+    static BlackListService blackListService = new LocalBlacklistService();
+    static JwtIssuer issuer = new JwtIssuer(keys, blackListService);
     public static void main( String[] args )
     {
         //String json = login("smau", "password");
@@ -34,10 +48,10 @@ public class Context
             JSONObject jsonObject = new JSONObject(json);
             String username = jsonObject.getString("username");
             String password = jsonObject.getString("password");
-            if(Authenticator.authenticate(username, password))
+            if(Authenticator.authenticate(userService, username, password))
             {
-                String refreshJwt = JwtIssuer.issueRefreshToken(username, privateSignature);
-                String accessJwt = JwtIssuer.issueAccessToken(refreshJwt, privateSignature);
+                String refreshJwt = issuer.issueRefreshToken(username);
+                String accessJwt = issuer.issueAccessToken(refreshJwt);
 
                 JSONObject obj = new JSONObject();
                 obj.put("refresh", refreshJwt);
@@ -57,7 +71,7 @@ public class Context
         {
             JSONObject jsonObject = new JSONObject(json);
             String refreshJwt = jsonObject.getString("refresh");
-            Blacklister.blacklist(refreshJwt, privateSignature);
+            Blacklister.blacklist(blackListService, refreshJwt);
 
             JSONObject obj = new JSONObject();
             obj.put("messaggio", "Ok");
@@ -76,7 +90,7 @@ public class Context
         {
             JSONObject jsonObject = new JSONObject(json);
             String refreshJwt = jsonObject.getString("refresh");
-            String accessToken = JwtIssuer.issueAccessToken(refreshJwt, privateSignature);
+            String accessToken = issuer.issueAccessToken(refreshJwt);
             
             if(accessToken != null)
             {
@@ -96,7 +110,7 @@ public class Context
         {
             JSONObject jsonObject = new JSONObject(json);
             String refreshJwt = jsonObject.getString("refresh");
-            String newRefreshJwt = JwtIssuer.updateRefreshToken(refreshJwt, privateSignature);
+            String newRefreshJwt = issuer.updateRefreshToken(refreshJwt);
             
             if(newRefreshJwt != null)
             {

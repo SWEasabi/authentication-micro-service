@@ -1,27 +1,36 @@
-package it.sweasabi.authentication;
+package it.sweasabi.authentication.kernel;
 
-import java.util.Map;
+import it.sweasabi.authentication.services.BlackListService;
+import it.sweasabi.authentication.services.KeysService;
 
-class JwtIssuer 
+public class JwtIssuer 
 {
-    public static String issueRefreshToken(String username, String privateSignature)
+    private KeysService keys;
+    private BlackListService blackListService;
+    private JwtVerifier verifier;
+
+    public JwtIssuer(KeysService Keys, BlackListService BlackListService)
     {
-        RefreshJwt jwt = new RefreshJwt(privateSignature);
-        jwt.addClaim("username", username);
-        return jwt.create();
+        keys = Keys;
+        blackListService = BlackListService;
+        verifier = new JwtVerifier(keys, blackListService);
     }
-    public static String issueAccessToken(String refreshJwt, String privateSignature)
+    public String issueRefreshToken(String username)
     {
-        String publicSignature = "chiavePubblica";
-        if(JwtVerifier.isAValidRefreshJwt(refreshJwt, privateSignature))
+        JwtPackager packager = new JwtPackager(7200, "refresh");
+        packager.addClaim("username", username);
+        return packager.pack(keys.getRefreshKey());
+    }
+    public String issueAccessToken(String refreshJwt)
+    {
+        if(verifier.isAValidRefreshJwt(refreshJwt))
         {
             try
             {
-                Map<String, Object> map = JwtVerifier.getClaimsMap(refreshJwt, privateSignature);
-                String username = map.get("username").toString();
-                AccessJwt jwt = new AccessJwt(publicSignature);
-                jwt.addClaim("username", username);
-                return jwt.create();
+                String username = JwtExtractor.getUsername(refreshJwt, keys.getRefreshKey());
+                JwtPackager packager = new JwtPackager(120, "access");
+                packager.addClaim("username", username);
+                return packager.pack(keys.getAccessKey());
             }
             catch(Exception e)
             {
@@ -30,15 +39,14 @@ class JwtIssuer
         }
         return null;
     }
-    public static String updateRefreshToken(String refreshJwt, String privateSignature)
+    public String updateRefreshToken(String refreshJwt)
     {
-        if(JwtVerifier.isAValidRefreshJwt(refreshJwt, privateSignature))
+        if(verifier.isAValidRefreshJwt(refreshJwt))
         {
             try
             {
-                Map<String, Object> map = JwtVerifier.getClaimsMap(refreshJwt, privateSignature);
-                String username = map.get("username").toString();
-                return issueRefreshToken(privateSignature, username);
+                String username = JwtExtractor.getUsername(refreshJwt, keys.getRefreshKey());
+                return issueRefreshToken(username);
             }
             catch(Exception e)
             {

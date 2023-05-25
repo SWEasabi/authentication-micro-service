@@ -1,10 +1,10 @@
-package it.sweasabi.authentication;
+package it.sweasabi.authentication.kernel;
 
-import it.sweasabi.authentication.services.UserService;
+import it.sweasabi.authentication.services.UsersService;
 
-class Authenticator
+public class Authenticator
 {
-    public static boolean authenticate(UserService userService, String username, String password)
+    public static boolean authenticate(UsersService userService, String username, String password)
     {
         return userService.getPasswordHashFromUser(username).equals(password);
     }

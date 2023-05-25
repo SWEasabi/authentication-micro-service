@@ -1,4 +1,4 @@
-package it.sweasabi.authentication;
+package it.sweasabi.authentication.kernel;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -10,11 +10,20 @@ import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.MissingClaimException;
 */
 
-import java.util.Map;
+import it.sweasabi.authentication.services.BlackListService;
+import it.sweasabi.authentication.services.KeysService;
 
-class JwtVerifier
+public class JwtVerifier
 {
-    private static boolean verify(String token, String signature, String type)
+    private KeysService keys;
+    private BlackListService blackListService;
+    public JwtVerifier(KeysService Keys, BlackListService BlackListService)
+    {
+        keys = Keys;
+        blackListService = BlackListService;
+    }
+
+    private boolean verify(String token, String signature, String type)
     {
         try
         {
@@ -36,28 +45,16 @@ class JwtVerifier
         }
         return false;
     }
-    public static boolean isAValidAccessJwt(String token, String signature)
+    public boolean isAValidAccessJwt(String token)
     {
-        return verify(token, signature, "access");
+        return verify(token, keys.getAccessKey(), "access");
     }
-    public static boolean isAValidRefreshJwt(String token, String signature)
+    public boolean isAValidRefreshJwt(String token)
     {
-        if(Blacklister.isAlreadyBlacklisted(token))
+        if(Blacklister.isBlacklisted(blackListService, token))
         {
             return false;
         }
-        return verify(token, signature, "refresh");
-    }
-    public static Map<String, Object> getClaimsMap(String token, String signature) throws Exception
-    {
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(signature))
-                .withIssuer("auth0")
-                .withClaimPresence("map")
-                .withClaimPresence("type")
-                .build();
-        DecodedJWT jwt = verifier.verify(token);
-        Map<String, Object> map = jwt.getClaim("map").asMap();
-        
-        return map;
+        return verify(token, keys.getRefreshKey(), "refresh");
     }
 }

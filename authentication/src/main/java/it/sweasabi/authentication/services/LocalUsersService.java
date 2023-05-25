@@ -1,6 +1,6 @@
 package it.sweasabi.authentication.services;
 
-public class LocalUserService implements UserService
+public class LocalUsersService implements UsersService
 {
     // ritorna l'hash della password dell'utente, se esiste, altrimenti stringa vuota
     public String getPasswordHashFromUser(String username)

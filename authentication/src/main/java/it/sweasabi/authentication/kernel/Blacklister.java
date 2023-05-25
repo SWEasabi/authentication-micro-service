@@ -1,17 +1,15 @@
 package it.sweasabi.authentication.kernel;
 
-class Blacklister 
+import it.sweasabi.authentication.services.BlackListService;
+
+public class Blacklister 
 {
-    public static void blacklist(String refreshJwt)
+    public static void blacklist(BlackListService service, String refreshJwt)
     {
-        if(JwtVerifier.isAValidRefreshJwt(refreshJwt))
-        {
-            // blacklista nel db
-        }
+        service.blacklist(refreshJwt);
     }
-    public static boolean isAlreadyBlacklisted(String refreshJwt)
+    public static boolean isBlacklisted(BlackListService service, String refreshJwt)
     {
-        // fa il controllo nel db
-        return false;
+        return service.isBlacklisted(refreshJwt);
     }
 }
