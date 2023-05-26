@@ -26,6 +26,12 @@ public class AppTest
     static JwtVerifier verifier = new JwtVerifier(keys, blackListService);
 
     @Test
+    public void LoginTest()
+    {
+        //String json = login("{\"username\": \"Admin\", \"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\"}");
+        //System.out.println(json);
+    }
+    @Test
     public void EncodeTest()
     {
         try

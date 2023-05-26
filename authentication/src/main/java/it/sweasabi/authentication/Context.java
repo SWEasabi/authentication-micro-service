@@ -25,23 +25,46 @@ public class Context
         //System.out.println( json );
 
         // test credenziali corrette
-        
-        String json = login("{\"username\": \"smau\", \"password\": \"hashedPsw\"}");
-        System.out.println( json );
+        //String json = listener("{\"function\": \"login\", \"username\": \"Admin\", \"password\": \"5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8\"}");
+        //System.out.println(json);
 
         // test credenziali sbagliate
-        /*
-        String json = login("{\"username\": \"smau\", \"password\": \"wrongPsw\"}");
-        System.out.println( json );
-        */
+        //String json = listener("{\"function\": \"login\", \"username\": \"Admin\", \"password\": \"wrongPsw\"}");
+        //System.out.println(json);
 
         // test credenziali mancanti
-        /*
-        String json = login("{\"username\": \"smau\"");
-        System.out.println( json );
-        */
+        //String json = listener("{\"function\": \"login\", \"username\": \"Admin\"}");
+        //System.out.println(json);
+
+        // test logout
+        //String json = listener("{\"function\": \"logout\", \"refresh\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTY4NTA5MTk3OCwibWFwIjp7InVzZXJuYW1lIjoiQWRtaW4ifSwidHlwZSI6ImFjY2VzcyJ9.PB9oCqlCE_71TtmW71w0Cun5txgdydb_i4RbyN0KbJI\"}");
+        //System.out.println(json);
     }
-    public static String login(String json)
+    public static String listener(String json)
+    {
+        try
+        {
+            JSONObject jsonObject = new JSONObject(json);
+            String function = jsonObject.getString("function");
+            switch(function)
+            {
+                case "login":
+                    return login(json);
+                case "logout":
+                    return logout(json);
+                case "getNewAccess":
+                    return refreshAccessJwt(json);
+                case "getNewRefresh":
+                    return refreshRefreshJwt(json);
+            }
+        }
+        catch (Exception e) {}
+        // errore credenziali/json
+        JSONObject obj = new JSONObject();
+        obj.put("errore", "JSON non valido");
+        return obj.toString();
+    }
+    private static String login(String json)
     {
         try
         {
@@ -65,7 +88,7 @@ public class Context
         obj.put("errore", "Credenziali errate o mancanti");
         return obj.toString();
     }
-    public static String logout(String json)
+    private static String logout(String json)
     {
         try
         {
@@ -84,7 +107,7 @@ public class Context
             return obj.toString();
         }
     }
-    public static String refreshAccessJwt(String json)
+    private static String refreshAccessJwt(String json)
     {
         try
         {
@@ -104,7 +127,7 @@ public class Context
         obj.put("errore", "Token fornito non valido");
         return obj.toString();
     }
-    public static String refreshRefreshJwt(String json)
+    private static String refreshRefreshJwt(String json)
     {
         try
         {
