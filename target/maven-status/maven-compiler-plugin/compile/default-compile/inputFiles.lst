@@ -1,0 +1,15 @@
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/services/LocalBlacklistService.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/services/LocalUsersService.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/Context.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/kernel/Blacklister.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/kernel/Authenticator.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/kernel/JwtExtractor.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/SWEasabiAuthAPI/SwEasabiAuthApiApplication.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/kernel/JwtVerifier.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/services/LocalKeysService.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/kernel/JwtIssuer.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/SWEasabiAuthAPI/Controller.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/kernel/JwtPackager.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/services/KeysService.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/services/BlackListService.java
+/home/piero/Desktop/SWE/authentication-micro-service/src/main/java/it/SWEasabi/authentication/services/UsersService.java
