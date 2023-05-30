@@ -54,9 +54,9 @@ public class Context
                     return login(json);
                 case "logout":
                     return logout(json);
-                case "getNewAccess":
+                case "access":
                     return refreshAccessJwt(json);
-                case "getNewRefresh":
+                case "refresh":
                     return refreshRefreshJwt(json);
             }
         }
