@@ -1,19 +1,19 @@
 package it.SWEasabi.authentication.kernel;
 
-import it.SWEasabi.authentication.services.BlackListService;
+import it.SWEasabi.authentication.services.BlacklistService;
 import it.SWEasabi.authentication.services.KeysService;
 
 public class JwtIssuer 
 {
     private KeysService keys;
-    private BlackListService blackListService;
+    private BlacklistService blacklistService;
     private JwtVerifier verifier;
 
-    public JwtIssuer(KeysService Keys, BlackListService BlackListService)
+    public JwtIssuer(KeysService Keys, BlacklistService BlacklistService)
     {
         keys = Keys;
-        blackListService = BlackListService;
-        verifier = new JwtVerifier(keys, blackListService);
+        blacklistService = BlacklistService;
+        verifier = new JwtVerifier(keys, blacklistService);
     }
     public String issueRefreshToken(String username)
     {
