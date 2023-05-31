@@ -7,7 +7,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 
-public class JwtPackager
+class JwtPackager
 {
     private int timeToLive;
     private String type;
