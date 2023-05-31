@@ -7,7 +7,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-public class JwtExtractor
+class JwtExtractor
 {
     private static Map<String, Object> getClaimsMap(String jwt, String key) throws Exception
     {

@@ -11,11 +11,11 @@
 	</parent>
 
 	<groupId>it.SWEasabi</groupId>
-	<artifactId>SWEasabiAuthAPI</artifactId>
+	<artifactId>SWEasabiAuthRest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>SWEasabiAuthAPI</name>
-	<description>API per gestione login e JWT</description>
+	<name>SWEasabiAuthRest</name>
+	<description>Rest per gestione login e JWT</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -56,7 +56,7 @@
 		<dependency>
       		<groupId>junit</groupId>
       		<artifactId>junit</artifactId>
-      		<version>4.11</version>
+      		<version>[4.13.1,)</version>
       		<scope>test</scope>
     	</dependency>
 
@@ -65,12 +65,6 @@
 			  <artifactId>java-jwt</artifactId>
 			  <version>4.4.0</version>
 		</dependency>
-
-		<dependency>
-			  <groupId>org.json</groupId>
-			  <artifactId>json</artifactId>
-			  <version>20230227</version>
-	  	</dependency>
 
 	</dependencies>
 

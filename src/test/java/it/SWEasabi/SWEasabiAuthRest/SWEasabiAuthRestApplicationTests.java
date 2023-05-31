@@ -1,10 +1,10 @@
-package it.SWEasabi.SWEasabiAuthAPI;
+package it.SWEasabi.SWEasabiAuthRest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SwEasabiAuthApiApplicationTests {
+class SWEasabiAuthRestApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -4,26 +4,11 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-/*
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.exceptions.MissingClaimException;
-*/
-
-import it.SWEasabi.authentication.services.BlacklistService;
 import it.SWEasabi.authentication.services.KeysService;
 
-public class JwtVerifier
+class JwtVerifier
 {
-    private KeysService keys;
-    private BlacklistService blacklistService;
-    public JwtVerifier(KeysService Keys, BlacklistService BlacklistService)
-    {
-        keys = Keys;
-        blacklistService = BlacklistService;
-    }
-
-    private boolean verify(String jwt, String key, String type)
+    private static boolean verify(String jwt, String key, String type)
     {
         try
         {
@@ -45,16 +30,12 @@ public class JwtVerifier
         }
         return false;
     }
-    public boolean isAValidAccessJwt(String jwt)
+    public static boolean isAValidAccessJwt(String jwt, KeysService keys)
     {
         return verify(jwt, keys.getAccessKey(), "access");
     }
-    public boolean isAValidRefreshJwt(String jwt)
+    public static boolean isAValidRefreshJwt(String jwt, KeysService keys)
     {
-        if(RefreshJwtBlacklister.isBlacklisted(blacklistService, jwt))
-        {
-            return false;
-        }
         return verify(jwt, keys.getRefreshKey(), "refresh");
     }
 }
