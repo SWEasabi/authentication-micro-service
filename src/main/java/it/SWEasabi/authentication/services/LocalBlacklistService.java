@@ -1,6 +1,6 @@
 package it.SWEasabi.authentication.services;
 
-public class LocalBlacklistService implements BlackListService
+public class LocalBlacklistService implements BlacklistService
 {
     public boolean isBlacklisted(String refreshJwt)
     {
