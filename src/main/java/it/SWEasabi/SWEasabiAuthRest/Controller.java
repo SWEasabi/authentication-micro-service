@@ -36,7 +36,7 @@ public class Controller
 		JsonObject rq = new Gson().fromJson(json, JsonObject.class);
 		String username = rq.get("username").toString();
 		String password = rq.get("password").toString();
-		
+
 		LoginResult result = core.login(username, password);
 
 		JsonObject response = new JsonObject();
