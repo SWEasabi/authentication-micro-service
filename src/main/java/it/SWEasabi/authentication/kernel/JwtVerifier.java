@@ -28,7 +28,7 @@ class JwtVerifier
         {
             return false;
         }
-        return false;
+        return false; //Mai raggiungibile?
     }
     public static boolean isAValidAccessJwt(String jwt, KeysService keys)
     {
