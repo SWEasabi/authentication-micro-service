@@ -80,7 +80,7 @@ public class JwtAuthorityTest {
         String refreshJwt = JwtIssuer.issueRefreshToken(username, key);
         assertTrue(authority.isAValidRefreshJwt(refreshJwt));
         assertTrue(authority.invalidateRefreshJwt(refreshJwt));
-        assertFalse(authority.isAValidRefreshJwt(refreshJwt)); //Non funziona perché il metodo per blacklistare non fa nulla
+        assertFalse(authority.isAValidRefreshJwt(refreshJwt)); //Non funziona perché il metodo per blacklistare nella riga sopra non fa nulla
     }
 
     @Test
