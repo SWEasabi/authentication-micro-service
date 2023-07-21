@@ -4,32 +4,32 @@ import it.SWEasabi.authentication.services.KeysService;
 
 class JwtIssuer 
 {
-    public static String issueRefreshToken(String username, KeysService keys)
+    public static String issueRefreshToken(String username, KeysService keysService)
     {
         JwtPackager packager = new JwtPackager(7200, "refresh");
         packager.addClaim("username", username);
-        return packager.pack(keys.getRefreshKey());
+        return packager.pack(keysService.getRefreshKey());
     }
-    public static String issueAccessToken(String refreshJwt, KeysService keys)
+    public static String issueAccessToken(String refreshJwt, KeysService keysService)
     {
         try
         {
-            String username = JwtExtractor.getUsername(refreshJwt, keys.getRefreshKey());
+            String username = JwtExtractor.getUsername(refreshJwt, keysService.getRefreshKey());
             JwtPackager packager = new JwtPackager(120, "access");
             packager.addClaim("username", username);
-            return packager.pack(keys.getAccessKey());
+            return packager.pack(keysService.getAccessKey());
         }
         catch(Exception e)
         {
             return null;
         }
     }
-    public static String updateRefreshToken(String refreshJwt, KeysService keys)
+    public static String updateRefreshToken(String refreshJwt, KeysService keysService)
     {
         try
         {
-            String username = JwtExtractor.getUsername(refreshJwt, keys.getRefreshKey());
-            return JwtIssuer.issueRefreshToken(username, keys);
+            String username = JwtExtractor.getUsername(refreshJwt, keysService.getRefreshKey());
+            return JwtIssuer.issueRefreshToken(username, keysService);
         }
         catch(Exception e)
         {
