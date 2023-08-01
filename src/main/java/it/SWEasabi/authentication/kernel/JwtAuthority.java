@@ -5,8 +5,8 @@ import it.SWEasabi.authentication.services.KeysService;
 
 public class JwtAuthority
 {
-    private KeysService keysService;
-    private BlacklistService blacklistService;
+    private final KeysService keysService;
+    private final BlacklistService blacklistService;
 
     public JwtAuthority(KeysService ks, BlacklistService bs)
     {

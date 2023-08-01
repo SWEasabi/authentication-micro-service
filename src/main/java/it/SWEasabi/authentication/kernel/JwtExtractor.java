@@ -17,9 +17,8 @@ class JwtExtractor
                 .withClaimPresence("type")
                 .build();
         DecodedJWT decodedJWT = verifier.verify(jwt);
-        Map<String, Object> map = decodedJWT.getClaim("map").asMap();
-        
-        return map;
+
+        return decodedJWT.getClaim("map").asMap();
     }
     public static String getUsername(String jwt, String key) throws Exception
     {

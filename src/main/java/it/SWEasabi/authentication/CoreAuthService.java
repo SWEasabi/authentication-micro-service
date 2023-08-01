@@ -9,8 +9,8 @@ import it.SWEasabi.authentication.services.UsersService;
 
 public class CoreAuthService 
 {
-    private UsersService userService;
-    private JwtAuthority authority;
+    private final UsersService userService;
+    private final JwtAuthority authority;
 
     public CoreAuthService(UsersService UserService, KeysService KeysService, BlacklistService BlacklistService)
     {
