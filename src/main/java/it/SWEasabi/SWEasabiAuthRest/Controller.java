@@ -1,6 +1,5 @@
 package it.SWEasabi.SWEasabiAuthRest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,9 +9,6 @@ import it.SWEasabi.authentication.entities.AuthUser;
 import it.SWEasabi.authentication.kernel.LoginResult;
 import it.SWEasabi.authentication.services.BlacklistService;
 import it.SWEasabi.authentication.services.KeysService;
-import it.SWEasabi.authentication.services.LocalBlacklistService;
-import it.SWEasabi.authentication.services.LocalKeysService;
-import it.SWEasabi.authentication.services.LocalUsersService;
 import it.SWEasabi.authentication.services.UsersService;
 
 import com.google.gson.Gson;
@@ -26,8 +22,7 @@ public class Controller
 	//UsersService usersService = new LocalUsersService();
 	//KeysService keysService = new LocalKeysService();
 	//BlacklistService blacklistService = new LocalBlacklistService();
-
-	@Autowired
+	
 	public Controller(UsersService usersService, KeysService keysService, BlacklistService blacklistService)
 	{
 		core = new CoreAuthService(usersService, keysService, blacklistService);

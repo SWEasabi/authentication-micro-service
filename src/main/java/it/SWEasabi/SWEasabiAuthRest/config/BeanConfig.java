@@ -1,11 +1,8 @@
 package it.SWEasabi.SWEasabiAuthRest.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import it.SWEasabi.authentication.CoreAuthService;
-import it.SWEasabi.authentication.kernel.JwtAuthority;
 import it.SWEasabi.authentication.services.BlacklistService;
 import it.SWEasabi.authentication.services.KeysService;
 import it.SWEasabi.authentication.services.LocalBlacklistService;

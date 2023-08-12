@@ -1,7 +1,5 @@
 package it.SWEasabi.authentication;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import it.SWEasabi.authentication.kernel.Authenticator;
 import it.SWEasabi.authentication.kernel.JwtAuthority;
 import it.SWEasabi.authentication.kernel.LoginResult;
