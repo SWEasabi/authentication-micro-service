@@ -5,24 +5,24 @@ import it.SWEasabi.authentication.services.KeysService;
 
 public class JwtAuthority
 {
-    private KeysService keys;
+    private KeysService keysService;
     private BlacklistService blacklistService;
 
-    public JwtAuthority(KeysService Keys, BlacklistService BlacklistService)
+    public JwtAuthority(KeysService ks, BlacklistService bs)
     {
-        keys = Keys;
-        blacklistService = BlacklistService;
+        keysService = ks;
+        blacklistService = bs;
     }
     // ----------------------- ISSUER -----------------------
     public String issueRefreshToken(String username)
     {
-        return JwtIssuer.issueRefreshToken(username, keys);
+        return JwtIssuer.issueRefreshToken(username, keysService);
     }
     public String issueAccessToken(String refreshJwt)
     {
         if(isAValidRefreshJwt(refreshJwt))
         {
-            return JwtIssuer.issueAccessToken(refreshJwt, keys);
+            return JwtIssuer.issueAccessToken(refreshJwt, keysService);
         }
         return null;
     }
@@ -31,14 +31,14 @@ public class JwtAuthority
         if(isAValidRefreshJwt(refreshJwt))
         {
             invalidateRefreshJwt(refreshJwt);
-            return JwtIssuer.updateRefreshToken(refreshJwt, keys);
+            return JwtIssuer.updateRefreshToken(refreshJwt, keysService);
         }
         return null;
     }
     // ----------------------- VERIFIER -----------------------
     public boolean isAValidAccessJwt(String jwt)
     {
-        return JwtVerifier.isAValidAccessJwt(jwt, keys);
+        return JwtVerifier.isAValidAccessJwt(jwt, keysService);
     }
     public boolean isAValidRefreshJwt(String jwt)
     {
@@ -46,7 +46,7 @@ public class JwtAuthority
         {
             return false;
         }
-        return JwtVerifier.isAValidRefreshJwt(jwt, keys);
+        return JwtVerifier.isAValidRefreshJwt(jwt, keysService);
     }
     public boolean invalidateRefreshJwt(String jwt)
     {

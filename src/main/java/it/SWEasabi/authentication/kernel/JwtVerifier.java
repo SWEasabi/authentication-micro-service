@@ -30,12 +30,12 @@ class JwtVerifier
         }
         return false; //Mai raggiungibile?
     }
-    public static boolean isAValidAccessJwt(String jwt, KeysService keys)
+    public static boolean isAValidAccessJwt(String jwt, KeysService keysService)
     {
-        return verify(jwt, keys.getAccessKey(), "access");
+        return verify(jwt, keysService.getAccessKey(), "access");
     }
-    public static boolean isAValidRefreshJwt(String jwt, KeysService keys)
+    public static boolean isAValidRefreshJwt(String jwt, KeysService keysService)
     {
-        return verify(jwt, keys.getRefreshKey(), "refresh");
+        return verify(jwt, keysService.getRefreshKey(), "refresh");
     }
 }
