@@ -9,9 +9,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 
 class JwtPackager
 {
-    private int timeToLive;
-    private String type;
-    private HashMap<String, Object> claims;
+    private final int timeToLive;
+    private final String type;
+    private final HashMap<String, Object> claims;
 
     public JwtPackager(int TimeToLive, String Type)
     {
@@ -25,7 +25,7 @@ class JwtPackager
     }
     public String pack(String Key)
     {
-        JWTCreator.Builder builder = JWT.create().withIssuer("auth0").withExpiresAt(new Date(System.currentTimeMillis() + timeToLive * 1000));
+        JWTCreator.Builder builder = JWT.create().withIssuer("auth0").withExpiresAt(new Date(System.currentTimeMillis() + timeToLive * 1000L));
         builder.withClaim("map", claims);
         builder.withClaim("type", type);
         return builder.sign(Algorithm.HMAC256(Key));
