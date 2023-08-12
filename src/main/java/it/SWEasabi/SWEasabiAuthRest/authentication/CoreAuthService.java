@@ -1,4 +1,8 @@
-package it.SWEasabi.authentication;
+package it.SWEasabi.SWEasabiAuthRest.authentication;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import it.SWEasabi.authentication.kernel.Authenticator;
 import it.SWEasabi.authentication.kernel.JwtAuthority;
@@ -7,11 +11,12 @@ import it.SWEasabi.authentication.services.BlacklistService;
 import it.SWEasabi.authentication.services.KeysService;
 import it.SWEasabi.authentication.services.UsersService;
 
+@Component
 public class CoreAuthService 
 {
     private UsersService userService;
     private JwtAuthority authority;
-
+    
     public CoreAuthService(UsersService UserService, KeysService KeysService, BlacklistService BlacklistService)
     {
         userService = UserService;
