@@ -1,6 +1,6 @@
 package it.SWEasabi.authentication.services;
 
-public interface BlackListService
+public interface BlacklistService
 {
     // ritorna se il refreshJwt è già nella blacklist
     public boolean isBlacklisted(String refreshJwt);

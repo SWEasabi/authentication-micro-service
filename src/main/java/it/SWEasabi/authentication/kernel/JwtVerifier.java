@@ -4,37 +4,22 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-/*
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.exceptions.MissingClaimException;
-*/
-
-import it.SWEasabi.authentication.services.BlackListService;
 import it.SWEasabi.authentication.services.KeysService;
 
-public class JwtVerifier
+class JwtVerifier
 {
-    private KeysService keys;
-    private BlackListService blackListService;
-    public JwtVerifier(KeysService Keys, BlackListService BlackListService)
-    {
-        keys = Keys;
-        blackListService = BlackListService;
-    }
-
-    private boolean verify(String token, String signature, String type)
+    private static boolean verify(String jwt, String key, String type)
     {
         try
         {
-            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(signature))
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(key))
                 .withIssuer("auth0")
                 .withClaimPresence("map")
                 .withClaimPresence("type")
                 .build();
-            DecodedJWT jwt = verifier.verify(token);
+            DecodedJWT decodedJWT = verifier.verify(jwt);
 
-            if(jwt.getClaim("type").asString().equals(type))
+            if(decodedJWT.getClaim("type").asString().equals(type))
             {
                 return true;
             }
@@ -45,16 +30,12 @@ public class JwtVerifier
         }
         return false;
     }
-    public boolean isAValidAccessJwt(String token)
+    public static boolean isAValidAccessJwt(String jwt, KeysService keysService)
     {
-        return verify(token, keys.getAccessKey(), "access");
+        return verify(jwt, keysService.getAccessKey(), "access");
     }
-    public boolean isAValidRefreshJwt(String token)
+    public static boolean isAValidRefreshJwt(String jwt, KeysService keysService)
     {
-        if(Blacklister.isBlacklisted(blackListService, token))
-        {
-            return false;
-        }
-        return verify(token, keys.getRefreshKey(), "refresh");
+        return verify(jwt, keysService.getRefreshKey(), "refresh");
     }
 }
