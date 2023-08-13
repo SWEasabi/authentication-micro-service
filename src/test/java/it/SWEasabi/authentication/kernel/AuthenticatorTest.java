@@ -19,10 +19,10 @@ public class AuthenticatorTest {
         assertTrue(Authenticator.authenticate(user, "Admin", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"));
     }
 
-/*    @Test
+    @Test
     public void testAuthenticationFailed() {
         assertFalse(Authenticator.authenticate(user, "Admin", "password"));
         assertFalse(Authenticator.authenticate(user, "User", "password"));
-        assertFalse(Authenticator.authenticate(user, "User", "")); //La password per qualsiasi user diverso da admin è "".
-    }*/
+        //assertFalse(Authenticator.authenticate(user, "User", "")); //La password per qualsiasi user diverso da admin è "".
+    }
 }
