@@ -33,16 +33,16 @@ public class LoginResultTest {
 
     @Test
     public void testGetStatus() {
-        assertTrue(result.getStatus());
+        assertTrue(result.status());
     }
 
     @Test
     public void testGetAccessJwt() {
-        assertEquals(JwtIssuer.issueAccessToken(JwtIssuer.issueRefreshToken(username, key), key), result.getAccessJwt());
+        assertEquals(JwtIssuer.issueAccessToken(JwtIssuer.issueRefreshToken(username, key), key), result.access());
     }
 
     @Test
     public void testGetRefreshJwt() {
-        assertEquals(JwtIssuer.issueRefreshToken(username, key), result.getRefreshJwt());
+        assertEquals(JwtIssuer.issueRefreshToken(username, key), result.refresh());
     }
 }

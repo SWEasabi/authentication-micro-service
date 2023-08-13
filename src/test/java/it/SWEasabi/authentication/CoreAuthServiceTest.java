@@ -1,5 +1,6 @@
 package it.SWEasabi.authentication;
 
+import it.SWEasabi.SWEasabiAuthRest.authentication.CoreAuthService;
 import it.SWEasabi.authentication.kernel.Authenticator;
 import it.SWEasabi.authentication.kernel.JwtAuthority;
 import it.SWEasabi.authentication.kernel.LoginResult;
@@ -54,15 +55,15 @@ public class CoreAuthServiceTest {
     @Test
     public void testLogin() {
         LoginResult result = auth.login("Admin", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8");
-        assertEquals(result.getRefreshJwt(), authority.issueRefreshToken("Admin"));
-        assertEquals(result.getAccessJwt(), authority.issueAccessToken(authority.issueRefreshToken("Admin")));
+        assertEquals(result.refresh(), authority.issueRefreshToken("Admin"));
+        assertEquals(result.access(), authority.issueAccessToken(authority.issueRefreshToken("Admin")));
     }
 
     @Test
     public void testLoginFalse() {
         LoginResult result = auth.login("Admin", "false");
-        assertNotEquals(result.getRefreshJwt(), authority.issueRefreshToken("Admin"));
-        assertNotEquals(result.getAccessJwt(), authority.issueAccessToken(authority.issueRefreshToken("Admin")));
+        assertNotEquals(result.refresh(), authority.issueRefreshToken("Admin"));
+        assertNotEquals(result.access(), authority.issueAccessToken(authority.issueRefreshToken("Admin")));
     }
 
 /*    @Test
