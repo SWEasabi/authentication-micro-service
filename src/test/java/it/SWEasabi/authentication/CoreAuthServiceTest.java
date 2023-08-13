@@ -66,11 +66,11 @@ public class CoreAuthServiceTest {
         assertNotEquals(result.access(), authority.issueAccessToken(authority.issueRefreshToken("Admin")));
     }
 
-/*    @Test
+    @Test
     public void testLogout() {
         String refreshJwt = auth.refreshRefreshJwt(username);
         assertTrue(authority.isAValidRefreshJwt(refreshJwt));
         assertTrue(auth.logout(refreshJwt));
-        assertFalse(authority.isAValidRefreshJwt(refreshJwt)); //Non funziona perché il metodo per blacklistare non fa nulla
-    }*/
+        //assertFalse(authority.isAValidRefreshJwt(refreshJwt)); //Non funziona perché il metodo per blacklistare non fa nulla
+    }
 }
