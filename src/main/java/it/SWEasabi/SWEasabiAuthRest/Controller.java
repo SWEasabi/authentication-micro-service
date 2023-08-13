@@ -1,7 +1,7 @@
 package it.SWEasabi.SWEasabiAuthRest;
 
 
-import it.SWEasabi.authentication.CoreAuthService;
+import it.SWEasabi.SWEasabiAuthRest.authentication.CoreAuthService;
 import it.SWEasabi.authentication.kernel.LoginInput;
 import it.SWEasabi.authentication.kernel.LoginResult;
 import it.SWEasabi.authentication.kernel.LogoutInput;
@@ -13,6 +13,8 @@ import it.SWEasabi.authentication.kernel.RefreshRefreshOutput;
 import it.SWEasabi.authentication.services.BlacklistService;
 import it.SWEasabi.authentication.services.KeysService;
 import it.SWEasabi.authentication.services.UsersService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,9 +29,9 @@ public class Controller
 	//KeysService keysService = new LocalKeysService();
 	//BlacklistService blacklistService = new LocalBlacklistService();
 	
-	public Controller(UsersService usersService, KeysService keysService, BlacklistService blacklistService)
+	public Controller(CoreAuthService core)
 	{
-		core = new CoreAuthService(usersService, keysService, blacklistService);
+		this.core = core;
 	}
 
     @CrossOrigin (origins = "http://localhost:4200", maxAge = 3600)
